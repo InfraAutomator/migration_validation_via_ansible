@@ -1,11 +1,10 @@
 name: Ansible EC2 System Info
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
-
+  workflow_dispatch: # Allows manual trigger
 jobs:
   collect-info:
     runs-on: ubuntu-latest

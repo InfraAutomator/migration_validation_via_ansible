@@ -18,9 +18,9 @@ jobs:
           sudo apt update
           sudo apt install -y ansible python3
 
-      # - name: Install Python dependencies
-      #   run: |
-      #     python3 -m pip install --upgrade pip
+      - name: Install Python dependencies
+        run: |
+          # python3 -m pip install --upgrade pip
 
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.5.3

@@ -1,6 +1,5 @@
 import sys
 import json
-import os
 import re
 
 def parse_source_file(file_path):

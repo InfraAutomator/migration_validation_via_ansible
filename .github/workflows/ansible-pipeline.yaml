@@ -22,6 +22,14 @@ jobs:
         run: |
           python3 -m pip install --upgrade pip
 
+      - name: Set permissions for the key
+        run: chmod 600 infra/ubuntukey.pem
+
+      - name: Start SSH Agent and add key
+        run: |
+          eval "$(ssh-agent -s)"
+          ssh-add infra/ubuntukey.pem
+
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.5.3
         with:

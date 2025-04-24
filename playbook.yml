@@ -49,7 +49,10 @@
     - name: Compare JSON configuration files
       delegate_to: localhost
       shell: |
-        python3 compare_json.py \
-          --src-dir "{{ playbook_dir }}/outputs/json" \
-          --output-file "{{ playbook_dir }}/outputs/comparison_results.json"
+       import json
+       import sys
+        from json_dict_diff import diff  # Ensure you have installed this library
+          python3 compare_json.py \
+            --src-dir "{{ playbook_dir }}/outputs/json" \
+            --output-file "{{ playbook_dir }}/outputs/comparison_results.json"
 

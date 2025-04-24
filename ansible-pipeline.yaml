@@ -21,7 +21,6 @@ jobs:
       - name: Install Python dependencies
         run: |
           # python3 -m pip install --upgrade pip
-          from json_dict_diff import diff
 
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.5.3

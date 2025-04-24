@@ -21,9 +21,6 @@ jobs:
       - name: Install Python dependencies
         run: |
           python3 -m pip install --upgrade pip
-          import json
-          import sys
-          from json_dict_diff import diff  # Ensure you have installed this library
 
       - name: Set permissions for the key
         run: chmod 600 infra/ubuntukey.pem

@@ -59,8 +59,14 @@
     #         --src-dir "{{ playbook_dir }}/outputs/json" \
     #         --output-file "{{ playbook_dir }}/outputs/comparison_results.json"
 
-- name: Compare two JSON files
-  delegate_to: localhost
-  shell: |
-    python3 compare_json.py "{{ source_json }}" "{{ target_json }}"
+
+    - name: Compare two JSON files on the runner and show mismatches
+      shell: |
+        python3 compare_json.py "{{ source_json_path }}" "{{ target_json_path }}"
+      register: compare_output
+      ignore_errors: yes
+
+    - name: Show comparison results
+      debug:
+        var: compare_output.stdout
 

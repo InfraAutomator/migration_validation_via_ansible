@@ -59,9 +59,8 @@
     #         --src-dir "{{ playbook_dir }}/outputs/json" \
     #         --output-file "{{ playbook_dir }}/outputs/comparison_results.json"
 
-    - name: Compare two JSON files
-      delegate_to: localhost
-      shell: |
-        python3 compare_json.py \
-          "{{ playbook_dir }}/local_json_file_path" \
-          "{{ playbook_dir }}/local_json_file_path"
+- name: Compare two JSON files
+  delegate_to: localhost
+  shell: |
+    python3 compare_json.py "{{ source_json }}" "{{ target_json }}"
+

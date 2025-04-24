@@ -45,17 +45,23 @@
         for file in {{ playbook_dir }}/{{ local_output_dir }}/*.txt; do
           python3 extract_system_info.py "$file" "{{local_json_file_path}}"
         done
-        
+
     - name: Install required Python module json_dict_diff
       delegate_to: localhost
       shell: |
         pip3 install json_dict_diff
 
   ## testing comparison code
-    - name: Compare JSON configuration files
+    # - name: Compare JSON configuration files
+    #   delegate_to: localhost
+    #   shell: |
+    #       python3 compare_json.py \
+    #         --src-dir "{{ playbook_dir }}/outputs/json" \
+    #         --output-file "{{ playbook_dir }}/outputs/comparison_results.json"
+
+    - name: Compare two JSON files
       delegate_to: localhost
       shell: |
-          python3 compare_json.py \
-            --src-dir "{{ playbook_dir }}/outputs/json" \
-            --output-file "{{ playbook_dir }}/outputs/comparison_results.json"
-
+        python3 compare_json.py \
+          "{{ playbook_dir }}/outputs/json/source.json" \
+          "{{ playbook_dir }}/outputs/json/target.json"

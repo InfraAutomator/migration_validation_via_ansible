@@ -63,5 +63,5 @@
       delegate_to: localhost
       shell: |
         python3 compare_json.py \
-          "{{ playbook_dir }}/outputs/json/source.json" \
-          "{{ playbook_dir }}/outputs/json/target.json"
+          "{{ playbook_dir }}/local_json_file_path" \
+          "{{ playbook_dir }}/local_json_file_path"

@@ -35,6 +35,12 @@ jobs:
       #   with:
       #     ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
+      - name: Setup SSH Key
+        run: |
+          mkdir -p ~/.ssh
+          cp infra/ubuntukey.pem ~/.ssh/ubuntukey.pem
+          chmod 600 ~/.ssh/ubuntukey.pem
+
       - name: Run Ansible Playbook
         env:
           ANSIBLE_HOST_KEY_CHECKING: "False"

@@ -45,3 +45,10 @@
         for file in {{ playbook_dir }}/{{ local_output_dir }}/*.txt; do
           python3 extract_system_info.py "$file" "{{local_json_file_path}}"
         done
+  ## testing comparison code
+    - name: Compare JSON configuration files
+      delegate_to: localhost
+      shell: |
+       python3 compare_json.py \
+        --src-dir "{{ playbook_dir }}/{{ local_json_file_path }}" \
+        --output-file "{{ playbook_dir }}/{{ comparison_result_file }}"

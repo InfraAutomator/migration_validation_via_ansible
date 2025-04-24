@@ -49,6 +49,7 @@
     - name: Compare JSON configuration files
       delegate_to: localhost
       shell: |
-       python3 compare_json.py \
-        --src-dir "{{ playbook_dir }}/{{ local_json_file_path }}" \
-        --output-file "{{ playbook_dir }}/{{ comparison_result_file }}"
+        python3 compare_json.py \
+          --src-dir "{{ playbook_dir }}/outputs/json" \
+          --output-file "{{ playbook_dir }}/outputs/comparison_results.json"
+

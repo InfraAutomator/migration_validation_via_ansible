@@ -81,12 +81,12 @@
         path: "{{ local_output_dir }}/ec2"
         state: directory
 
-    # - name: Fetch system_info.txt to local machine
-    #   fetch:
-    #     src: "{{ dest_file }}"
-    #     dest: "{{ local_file_path }}"
-    #     flat: yes
-    #   when: file_stat.stat.exists
+    - name: Fetch system_info.txt to local machine
+      fetch:
+        src: "{{ dest_file }}"
+        dest: "{{ local_file_path }}"
+        flat: yes
+      when: file_stat.stat.exists
 
     - name: Set appropriate permissions for system_info.txt
       file:

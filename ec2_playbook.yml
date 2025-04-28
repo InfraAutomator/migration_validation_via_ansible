@@ -58,6 +58,12 @@
           python3 extract_system_info.py "$file" "{{local_json_file_path}}"
         done
 
+    # print local_json_file_path and content
+    - name: Print local_json_file_path
+      delegate_to: localhost
+      debug:
+        msg: "local_json_file_path: {{ playbook_dir }}/{{ local_output_dir }}/system_info_{{ inventory_hostname }}.json"
+
     - name: Install required Python module json_dict_diff
       delegate_to: localhost
       shell: |

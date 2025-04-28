@@ -70,12 +70,12 @@
       register: json_file_content
       ignore_errors: true
 
-    - name: Upload system information artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: system-info-outputs
-        path: ./system_info_outputs/
-        retention-days: 30
+    # - name: Upload system information artifacts
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: system-info-outputs
+    #     path: ./system_info_outputs/
+    #     retention-days: 30
     
         # - name: Install required Python module json_dict_diff
     #   delegate_to: localhost

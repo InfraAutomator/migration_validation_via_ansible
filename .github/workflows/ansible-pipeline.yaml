@@ -46,3 +46,10 @@ jobs:
           ANSIBLE_HOST_KEY_CHECKING: "False"
         run: |
           ansible-playbook -i inventory.ini ec2_playbook.yml
+
+      - name: Upload system information artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: system-info-outputs
+          path: ./system_info_outputs/
+          retention-days: 30

@@ -64,10 +64,16 @@
       debug:
         msg: "local_json_file_path: {{ playbook_dir }}/{{ local_output_dir }}/system_info_{{ inventory_hostname }}.json"
 
-    - name: Install required Python module json_dict_diff
+    - name: Print content of local_json_file_path
       delegate_to: localhost
-      shell: |
-        pip3 install json_dict_diff
+      command: cat "{{ playbook_dir }}/{{ local_output_dir }}/system_info_{{ inventory_hostname }}.json"
+      register: json_file_content
+      ignore_errors: true
+
+    # - name: Install required Python module json_dict_diff
+    #   delegate_to: localhost
+    #   shell: |
+    #     pip3 install json_dict_diff
 
     - name: Ensure the directory structure exists locally
       delegate_to: localhost
@@ -75,11 +81,28 @@
         path: "{{ local_output_dir }}/ec2"
         state: directory
 
+    # - name: Fetch system_info.txt to local machine
+    #   fetch:
+    #     src: "{{ dest_file }}"
+    #     dest: "{{ local_file_path }}"
+    #     flat: yes
+    #   when: file_stat.stat.exists
+
+    - name: Set appropriate permissions for system_info.txt
+      file:
+        path: "{{ local_file_path }}"
+        mode: '0644'
+
     - name: Fetch TXT file to local machine
       fetch:
         src: "{{ local_file_path }}"
         dest: "{{ playbook_dir }}/{{ local_output_dir }}/ec2/"
         flat: yes
+
+    - name: Set appropriate permissions for system_info.json
+      file:
+        path: "{{ local_json_file_path }}"
+        mode: '0644'
 
     - name: Fetch JSON file to local machine
       fetch:

@@ -34,6 +34,14 @@
         dest: "{{ local_file_path }}"
         flat: yes
 
+    # print local_file_path and its content
+    - name: Print local_file_path
+      debug:
+        msg: "local_file_path: {{ local_file_path }}"
+    - name: Print content of local_file_path
+      command: cat "{{ local_file_path }}"
+      register: file_content
+
     - name: Convert TXT to JSON
       delegate_to: localhost
       shell: |

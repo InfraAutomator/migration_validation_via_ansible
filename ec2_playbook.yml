@@ -39,17 +39,17 @@
       debug:
         msg: "local_file_path: {{ playbook_dir }}/{{ local_output_dir }}/system_info_{{ inventory_hostname }}.txt"
 
-    - name: Print content of local_file_path
-      delegate_to: localhost
-      command: cat "{{ playbook_dir }}/{{ local_output_dir }}/system_info_{{ inventory_hostname }}.txt"
-      register: file_content
-      ignore_errors: true
+    # - name: Print content of local_file_path
+    #   delegate_to: localhost
+    #   command: cat "{{ playbook_dir }}/{{ local_output_dir }}/system_info_{{ inventory_hostname }}.txt"
+    #   register: file_content
+    #   ignore_errors: true
 
-    - name: Show content
-      delegate_to: localhost
-      debug:
-        msg: "{{ file_content.stdout }}"
-      when: file_content.rc == 0
+    # - name: Show content
+    #   delegate_to: localhost
+    #   debug:
+    #     msg: "{{ file_content.stdout }}"
+    #   when: file_content.rc == 0
 
     - name: Convert TXT to JSON
       delegate_to: localhost
@@ -75,38 +75,43 @@
     #   shell: |
     #     pip3 install json_dict_diff
 
-    - name: Ensure the directory structure exists locally
-      delegate_to: localhost
-      file:
-        path: "{{ local_output_dir }}/ec2"
-        state: directory
+    # - name: Ensure the directory structure exists locally
+    #   delegate_to: localhost
+    #   file:
+    #     path: "{{ local_output_dir }}/ec2"
+    #     state: directory
 
-    - name: Fetch system_info.txt to local machine
-      fetch:
-        src: "{{ dest_file }}"
-        dest: "{{ local_file_path }}"
-        flat: yes
-      when: file_stat.stat.exists
+    # - name: Check if system_info.txt exists on remote machine
+    #   stat:
+    #     path: "{{ dest_file }}"
+    #   register: file_stat
 
-    - name: Set appropriate permissions for system_info.txt
-      file:
-        path: "{{ local_file_path }}"
-        mode: '0644'
+    # - name: Fetch system_info.txt to local machine
+    #   fetch:
+    #     src: "{{ dest_file }}"
+    #     dest: "{{ local_file_path }}"
+    #     flat: yes
+    #   when: file_stat.stat.exists
 
-    - name: Fetch TXT file to local machine
-      fetch:
-        src: "{{ local_file_path }}"
-        dest: "{{ playbook_dir }}/{{ local_output_dir }}/ec2/"
-        flat: yes
+    # - name: Set appropriate permissions for system_info.txt
+    #   file:
+    #     path: "{{ local_file_path }}"
+    #     mode: '0644'
 
-    - name: Set appropriate permissions for system_info.json
-      file:
-        path: "{{ local_json_file_path }}"
-        mode: '0644'
+    # - name: Fetch TXT file to local machine
+    #   fetch:
+    #     src: "{{ local_file_path }}"
+    #     dest: "{{ playbook_dir }}/{{ local_output_dir }}/ec2/"
+    #     flat: yes
 
-    - name: Fetch JSON file to local machine
-      fetch:
-        src: "{{ local_json_file_path }}"
-        dest: "{{ playbook_dir }}/{{ local_output_dir }}/ec2/"
-        flat: yes
+    # - name: Set appropriate permissions for system_info.json
+    #   file:
+    #     path: "{{ local_json_file_path }}"
+    #     mode: '0644'
+
+    # - name: Fetch JSON file to local machine
+    #   fetch:
+    #     src: "{{ local_json_file_path }}"
+    #     dest: "{{ playbook_dir }}/{{ local_output_dir }}/ec2/"
+    #     flat: yes
 

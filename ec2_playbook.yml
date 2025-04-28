@@ -69,16 +69,16 @@
         path: "{{ local_output_dir }}/ec2"
         state: directory
 
-    # - name: Download the generated text files to local machine
-    #   fetch:
-    #     src: "{{ local_file_path }}"
-    #     dest: "./{{ local_output_dir }}/ec2/{{ inventory_hostname }}.txt"
-    #     flat: yes
-    #   become: false
+    - name: Download the generated text files to local machine
+      fetch:
+        src: "{{ local_file_path }}"
+        dest: "./{{ local_output_dir }}/ec2/{{ inventory_hostname }}.txt"
+        flat: yes
+      become: false
 
-    # - name: Download the generated JSON files to local machine
-    #   fetch:
-    #     src: "{{ local_json_file_path }}"
-    #     dest: "./{{ local_output_dir }}/ec2/{{ inventory_hostname }}.json"
-    #     flat: yes
-    #   become: false
+    - name: Download the generated JSON files to local machine
+      fetch:
+        src: "{{ local_json_file_path }}"
+        dest: "./{{ local_output_dir }}/ec2/{{ inventory_hostname }}.json"
+        flat: yes
+      become: false

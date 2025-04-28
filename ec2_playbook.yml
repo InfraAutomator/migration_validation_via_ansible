@@ -34,13 +34,22 @@
         dest: "{{ local_file_path }}"
         flat: yes
 
-    # print local_file_path and its content
     - name: Print local_file_path
+      delegate_to: localhost
       debug:
-        msg: "local_file_path: {{ local_file_path }}"
+        msg: "local_file_path: {{ playbook_dir }}/{{ local_output_dir }}/system_info_{{ inventory_hostname }}.txt"
+
     - name: Print content of local_file_path
-      command: cat "{{ local_file_path }}"
+      delegate_to: localhost
+      command: cat "{{ playbook_dir }}/{{ local_output_dir }}/system_info_{{ inventory_hostname }}.txt"
       register: file_content
+      ignore_errors: true
+
+    - name: Show content
+      delegate_to: localhost
+      debug:
+        msg: "{{ file_content.stdout }}"
+      when: file_content.rc == 0
 
     - name: Convert TXT to JSON
       delegate_to: localhost

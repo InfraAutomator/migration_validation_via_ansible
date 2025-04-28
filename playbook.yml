@@ -56,6 +56,8 @@
       shell: |
         pip3 install json_dict_diff
 
+## testing this pipeline ##
+
   ## testing comparison code
     # - name: Compare JSON configuration files
     #   delegate_to: localhost

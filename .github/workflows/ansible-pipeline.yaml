@@ -45,4 +45,4 @@ jobs:
         env:
           ANSIBLE_HOST_KEY_CHECKING: "False"
         run: |
-          ansible-playbook -i inventory.ini playbook.yml
+          ansible-playbook -i inventory.ini ec2_playbook.yml

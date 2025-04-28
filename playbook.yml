@@ -8,10 +8,10 @@
     local_file_path: "{{ local_output_dir }}/system_info_{{ inventory_hostname }}.txt"
     local_json_file_path: "{{ local_output_dir }}/system_info_{{ inventory_hostname }}.json"
 #adding new variables
-    source_host: 13.201.222.231         # Replace with actual hostname
-    target_host: 13.232.230.153         # Replace with actual hostname
-    source_json_path: "{{ playbook_dir }}/{{ local_output_dir }}/system_info_{{ source_host }}.json"
-    target_json_path: "{{ playbook_dir }}/{{ local_output_dir }}/system_info_{{ target_host }}.json"
+    # source_host: 13.201.222.231         # Replace with actual hostname
+    # target_host: 13.232.230.153         # Replace with actual hostname
+    # source_json_path: "{{ playbook_dir }}/{{ local_output_dir }}/system_info_{{ source_host }}.json"
+    # target_json_path: "{{ playbook_dir }}/{{ local_output_dir }}/system_info_{{ target_host }}.json"
 
   tasks:
     - name: Ensure local output directory exists
@@ -65,13 +65,13 @@
     #         --output-file "{{ playbook_dir }}/outputs/comparison_results.json"
 
 
-    - name: Compare two JSON files on the runner and show mismatches
-      shell: |
-        python3 compare_json.py "{{ source_json_path }}" "{{ target_json_path }}"
-      register: compare_output
-      ignore_errors: yes
+    # - name: Compare two JSON files on the runner and show mismatches
+    #   shell: |
+    #     python3 compare_json.py "{{ source_json_path }}" "{{ target_json_path }}"
+    #   register: compare_output
+    #   ignore_errors: yes
 
-    - name: Show comparison results
-      debug:
-        var: compare_output.stdout
+    # - name: Show comparison results
+    #   debug:
+    #     var: compare_output.stdout
 

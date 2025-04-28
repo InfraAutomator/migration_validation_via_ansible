@@ -5,8 +5,8 @@
   vars:
     dest_file: /tmp/system_info.txt
     local_output_dir: ./system_info_outputs
-    local_file_path: "{{ local_output_dir }}/ec2/{{ inventory_hostname }}.txt"
-    local_json_file_path: "{{ local_output_dir }}/ec2/{{ inventory_hostname }}.json"
+    local_file_path: "{{ local_output_dir }}/system_info_{{ inventory_hostname }}.txt"
+    local_json_file_path: "{{ local_output_dir }}/system_info_{{ inventory_hostname }}.json"
 
   tasks:
     - name: Ensure local output directory exists
@@ -27,11 +27,6 @@
       shell: /tmp/command.sh
       register: result
       become: true
-
-    # - name: Save the system information to a file
-    #   copy:
-    #     content: "{{ result.stdout }}"
-    #     dest: "{{ dest_file }}"
 
     - name: Fetch system_info.txt to local machine
       fetch:

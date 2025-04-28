@@ -70,6 +70,12 @@
       register: json_file_content
       ignore_errors: true
 
+    - name: Upload system info outputs
+      uses: actions/upload-artifact@v4
+      with:
+        name: system_info_outputs
+        path: system_info_outputs/
+
     # - name: Install required Python module json_dict_diff
     #   delegate_to: localhost
     #   shell: |

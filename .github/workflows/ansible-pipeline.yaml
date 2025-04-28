@@ -53,3 +53,9 @@ jobs:
           name: system-info-outputs
           path: ./system_info_outputs/
           retention-days: 30
+
+      - name: Download system information artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: system-info-outputs
+          path: ./downloaded_artifacts

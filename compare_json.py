@@ -52,9 +52,9 @@ if __name__ == "__main__":
     differences = diff(source_filtered, target_filtered)
 
     if differences:
-        print("❌ JSON files do not match. Differences:")
+        print("Server configuration do not match. Differences:")
         print(json.dumps(differences, indent=4))
         sys.exit(1)
     else:
-        print("✅ JSON files match.")
+        print("Server configuration match.")
         sys.exit(0)

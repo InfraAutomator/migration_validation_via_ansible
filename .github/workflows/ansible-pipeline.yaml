@@ -47,6 +47,12 @@ jobs:
         run: |
           ansible-playbook -i inventory.ini ec2_playbook.yml
 
+      - name: Run Ansible Playbook for compare
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: "False"
+        run: |
+          ansible-playbook -i inventory.ini compare_json_playbook.yml
+
       - name: Upload system information artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -54,8 +60,8 @@ jobs:
           path: ./system_info_outputs/
           retention-days: 30
 
-      - name: Download system information artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: system-info-outputs
-          path: ./downloaded_artifacts
+      # - name: Download system information artifacts
+      #   uses: actions/download-artifact@v4
+      #   with:
+      #     name: system-info-outputs
+      #     path: ./downloaded_artifacts

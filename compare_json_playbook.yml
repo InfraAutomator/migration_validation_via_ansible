@@ -15,6 +15,11 @@
         dest: /tmp/compare_json.py
         mode: '0755'
 
+    - name: Install required Python module json_dict_diff
+      delegate_to: localhost
+      shell: |
+        pip3 install json_dict_diff
+
     - name: Run compare_json.py with provided JSON files
       command: python3 /tmp/compare_json.py "{{ source_json }}" "{{ target_json }}"
       register: compare_result

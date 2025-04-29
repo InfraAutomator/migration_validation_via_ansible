@@ -1,42 +1,25 @@
 ---
-- name: Compare JSON files based on CSV input
+- name: Compare JSON files
   hosts: localhost
   gather_facts: false
   vars:
-    csv_file: inventory.csv
-    compare_script: compare_json.py
-    output_dir: system_info_outputs
-    ec2_ips: []
-    onprem_ips: []
+    source_hostname: "{{ source_hostname }}"
+    target_hostname: "{{ target_hostname }}"
+    source_json: "system_info_outputs/ec2_{{ source_hostname }}.json"
+    target_json: "system_info_outputs/ec2_{{ target_hostname }}.json"
 
   tasks:
-    - name: Ensure output directory exists
-      file:
-        path: "{{ output_dir }}"
-        state: directory
+    - name: Ensure compare_json.py is present
+      copy:
+        src: compare_json.py
+        dest: /tmp/compare_json.py
+        mode: '0755'
 
-    - name: Read CSV file
-      slurp:
-        src: "{{ csv_file }}"
-      register: csv_content
+    - name: Run compare_json.py with provided JSON files
+      command: python3 /tmp/compare_json.py "{{ source_json }}" "{{ target_json }}"
+      register: compare_result
+      ignore_errors: true
 
-    - name: Decode and split CSV content
-      set_fact:
-        csv_lines: "{{ csv_content.content | b64decode | splitlines }}"
-
-    - name: Parse CSV content
-      set_fact:
-        ec2_ips: "{{ ec2_ips | default([]) + [item.split(',')[0].strip()] }}"
-        onprem_ips: "{{ onprem_ips | default([]) + [item.split(',')[1].strip()] }}"
-      loop: "{{ csv_lines[1:] }}"
-      when: item | length > 0
-
-    - name: Compare JSON files
-      vars:
-        source_json: "{{ output_dir }}/system_info_{{ ec2_ips[item.0] }}.json"
-        target_json: "{{ output_dir }}/system_info_{{ onprem_ips[item.0] }}.json"
-      command: >
-        python3 {{ compare_script }} {{ source_json }} {{ target_json }}
-      loop: "{{ range(0, ec2_ips | length) | list }}"
-      loop_control:
-        index_var: idx
+    - name: Display comparison result
+      debug:
+        var: compare_result.stdout

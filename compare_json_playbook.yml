@@ -20,11 +20,15 @@
         src: "{{ csv_file }}"
       register: csv_content
 
+    - name: Decode and split CSV content
+      set_fact:
+        csv_lines: "{{ csv_content.content | b64decode | splitlines }}"
+
     - name: Parse CSV content
       set_fact:
-        ec2_ips: "{{ ec2_ips + [item.split(',')[0].strip()] }}"
-        onprem_ips: "{{ onprem_ips + [item.split(',')[1].strip()] }}"
-      loop: "{{ csv_content.content | b64decode | splitlines()[1:] }}"
+        ec2_ips: "{{ ec2_ips | default([]) + [item.split(',')[0].strip()] }}"
+        onprem_ips: "{{ onprem_ips | default([]) + [item.split(',')[1].strip()] }}"
+      loop: "{{ csv_lines[1:] }}"
       when: item | length > 0
 
     - name: Compare JSON files

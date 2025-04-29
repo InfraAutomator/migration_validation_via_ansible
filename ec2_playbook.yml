@@ -28,13 +28,13 @@
       register: result
       become: true
 
-    - name: Fetch system_info.txt to local machine
+    - name: Fetch system_info.txt 
       fetch:
         src: "{{ dest_file }}"
         dest: "{{ local_file_path }}"
         flat: yes
 
-    - name: Print local_file_path
+    - name: Print out file path on the runner
       delegate_to: localhost
       debug:
         msg: "local_file_path: {{ playbook_dir }}/{{ local_output_dir }}/system_info_{{ inventory_hostname }}.txt"

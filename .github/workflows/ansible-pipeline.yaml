@@ -49,7 +49,7 @@ jobs:
 
       - name: Run Compare JSON Playbook
         run: |
-          ansible-playbook compare_json_playbook.yaml -e "source_hostname=65.1.147.138 target_hostname=13.203.222.18"
+          ansible-playbook compare_json_playbook.yml -e "source_hostname=65.1.147.138 target_hostname=13.203.222.18"
 
       - name: Upload system information artifacts
         uses: actions/upload-artifact@v4

@@ -5,8 +5,8 @@
   vars:
     source_hostname: "{{ source_hostname }}"
     target_hostname: "{{ target_hostname }}"
-    source_json: "system_info_outputs/ec2_{{ source_hostname }}.json"
-    target_json: "system_info_outputs/ec2_{{ target_hostname }}.json"
+    source_json: "system_info_outputs/system_info_{{ source_hostname }}.json"
+    target_json: "system_info_outputs/system_info_{{ target_hostname }}.json"
 
   tasks:
     - name: Ensure compare_json.py is present

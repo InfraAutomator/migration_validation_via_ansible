@@ -3,8 +3,8 @@ import sys
 from json_dict_diff import diff  # Ensure you have installed this library
 
 # Define keys to ignore or exclusively compare
-IGNORE_KEYS = []  # e.g., ['Date', 'MemTotal']
-ONLY_KEYS = ['System Name']    # e.g., ['System Name', 'Operating System Information']
+IGNORE_KEYS = []
+ONLY_KEYS = []
 
 def load_json(file_path):
     try:
